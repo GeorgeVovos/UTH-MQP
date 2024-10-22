@@ -5,7 +5,7 @@
 
 int main(){
 
-    long arrayLengths[] = { 2000000,20000000,200000000,400000000,800000000};
+    long arrayLengths[] = { 2000000,20000000,200000000,400000000,800000000,1600000000};
     int iterationCount = sizeof(arrayLengths)/ sizeof(long);
     float P = 3.14159;
   
