@@ -37,7 +37,7 @@ int main()
         double sequential_end_time = omp_get_wtime();
         double sequential_elapsed_time = sequential_end_time - sequential_start_time;
 
-        printf("%010d    %.6f", currentDataLength, sequential_elapsed_time);
+        printf("%010ld    %.6f", currentDataLength, sequential_elapsed_time);
 
         // Parallel logic
 
