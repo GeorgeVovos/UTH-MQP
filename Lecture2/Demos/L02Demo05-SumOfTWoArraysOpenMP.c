@@ -22,5 +22,19 @@ int main() {
    for (int i =0; i <N; i++)
       C[i] = A[i] + B[i];
 
+
+   printf("========================================");
+   printf("\n");
+   for (int i = 0; i < N; i++)
+      printf("%d  ",A[i]);
+   
+   printf("\n");
+   for (int i = 0; i < N; i++)
+      printf("%d  ",B[i]);
+   
+   printf("\n");
+   for (int i = 0; i < N; i++)
+      printf("%d  ",C[i]);
+      
    return 0;
 }
