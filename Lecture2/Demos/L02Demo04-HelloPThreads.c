@@ -11,11 +11,11 @@ typedef struct {
 
 void* thread_function(void* arg) {
     thread_data_t* data = (thread_data_t*)arg;
-    int currentTaskNumber = data->thread_num;
+    pthread_t currentTaskNumber = pthread_self();
 
     printf("Hello World from task %d \n", currentTaskNumber);
 
-    if (currentTaskNumber == 0) {
+    if (currentTaskNumber == 1) {
         printf("Total number of tasks = %d \n", data->total_num_threads);
     }
 

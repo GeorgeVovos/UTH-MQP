@@ -3,9 +3,9 @@
 
 #define MAX_THREADS 4 
 
-void* print_thread_number(void* threadId) {
-    long tid = (long)threadId;
-    printf("Thread Number: %ld \n", tid);
+void* print_thread_number(void *arg) {
+    pthread_t thread_id = pthread_self();
+    printf("Thread Number: %ld \n", (unsigned long)thread_id);
     pthread_exit(NULL);
 }
 
@@ -14,7 +14,7 @@ int main() {
 
     for (long t = 0; t < MAX_THREADS; t++) {
 
-        int threadId = pthread_create(&threads[t], NULL, print_thread_number, (void*)t);
+        int threadId = pthread_create(&threads[t], NULL, print_thread_number, NULL);
         if (threadId) {
             printf("Error: unable to create thread, %d\n", threadId);
             return -1;

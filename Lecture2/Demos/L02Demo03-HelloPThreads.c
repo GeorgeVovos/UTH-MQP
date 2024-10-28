@@ -5,16 +5,16 @@
 
 
 void* thread_function(void* threadId) {
-    long tid = (long)threadId;  
+    pthread_t thread_id = pthread_self();
 
-    if (tid == 0) {
+    if (thread_id == 1) {
         printf("Total number of tasks: %d \n", MAX_THREADS);
     }
 
-    printf("Hello from task %ld of %d \n", tid, MAX_THREADS);
+    printf("Hello from task %ld of %d \n", thread_id, MAX_THREADS);
 
-    if (tid == 2) {
-        printf("\tbut me, task %ld, greet you again one more time \n", tid);
+    if (thread_id == 3) {
+        printf("\tbut me, task %ld, greet you again one more time \n", thread_id);
     }
 
     pthread_exit(NULL);
@@ -23,7 +23,7 @@ void* thread_function(void* threadId) {
 int main() {
     pthread_t threads[MAX_THREADS]; 
     for (long t = 0; t < MAX_THREADS; t++) {
-        int threadId = pthread_create(&threads[t], NULL, thread_function, (void*)t);
+        int threadId = pthread_create(&threads[t], NULL, thread_function, NULL);
         if (threadId) {
             printf("Error: unable to create thread, %d\n", threadId);
             return -1;
