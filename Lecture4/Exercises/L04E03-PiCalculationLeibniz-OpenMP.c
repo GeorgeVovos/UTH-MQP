@@ -11,7 +11,7 @@ int main()
     srand(time(0));
 
     printf("Iterations:%d  , No of threads %d\n", iterationCount, omp_get_max_threads());
-    printf("Size        Sequential(s)   Parallel(s)   Speedup   Efficiency Pi(Seq)         Pi(Parallel)\n");
+    printf("Size        Sequential(s)   Parallel(s)   Speedup   Efficiency Pi(Seq)             Pi(Parallel)\n");
     for (int currentIteration = 0; currentIteration < iterationCount; currentIteration++)
     {
         long currentDataLength = arrayLengths[currentIteration];
