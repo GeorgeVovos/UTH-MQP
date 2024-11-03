@@ -13,7 +13,7 @@ int main()
     srand(time(0));
 
     printf("Iterations:%d  , No of threads %d , Window size %d\n", iterationCount, omp_get_max_threads(), w);
-    printf("Size          Sequential(s)   Parallel(s)   Speedup   Efficiency\n");
+    printf("Size          Sequential(s)   Parallel(s)   Speedup   Efficiency  Sequential Max Count Parallel Max Count\n");
     for (int currentIteration = 0; currentIteration < iterationCount; currentIteration++)
     {
         long currentDataLength = arrayLengths[currentIteration];
@@ -52,21 +52,20 @@ int main()
         printf("%010ld    %.6f", currentDataLength, sequential_elapsed_time);
 
         // Parallel logic
-
         double parallel_start_time = omp_get_wtime();
         int parallel_i;
-        #pragma omp parallel for
+#pragma omp parallel for
         for (parallel_i = w; parallel_i < currentDataLength - w; parallel_i++)
         {
             int isMaximum = 1;
             for (int j = parallel_i - w; j < parallel_i; j++) // left
-            { 
+            {
                 if (A[j] >= A[parallel_i])
                     isMaximum = 0;
             }
 
             for (int j = parallel_i + 1; j <= parallel_i + w; j++) // right
-            { 
+            {
                 if (A[j] >= A[parallel_i])
                     isMaximum = 0;
             }
@@ -81,13 +80,28 @@ int main()
         double parallel_elapsed_time = parallel_end_time - parallel_start_time;
 
         printf("        %.6f", parallel_elapsed_time);
-
         // End of Parallel logic
 
         double speedup = sequential_elapsed_time / parallel_elapsed_time;
         double efficiency = speedup / omp_get_max_threads();
+
+        // Counts
+        int maxCountSeq = 0;
+        int maxCountParallel = 0;
+        for (int i = 0; i < currentDataLength; i++)
+        {
+            if (B[i] > 0)
+            {
+                maxCountSeq++;
+            }
+            if (C[i] > 0)
+            {
+                maxCountParallel++;
+            }
+        }
+
         printf("      %.6f", speedup);
-        printf("  %.6f", efficiency);
+        printf("  %.6f   %-5d                %-5d \n", efficiency, maxCountSeq, maxCountParallel);
         printf("\n");
 
         if (currentDataLength <= 20)
@@ -118,11 +132,9 @@ int main()
             printf("\n\n");
         }
 
-        
         for (int i = 0; i < currentDataLength; i++)
             if (B[i] != C[i])
                 printf("\n Error in calculation ");
-        
 
         free(A);
         free(B);

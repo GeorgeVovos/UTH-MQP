@@ -106,7 +106,6 @@ int main()
 
         printf("        %.6f", parallel_elapsed_time);
 
-        // Calculate speedup and efficiency
         double speedup = sequential_elapsed_time / parallel_elapsed_time;
         double efficiency = speedup / omp_get_max_threads();
 
@@ -131,7 +130,6 @@ int main()
         printf("      %.6f", speedup);
         printf("  %.6f   %-5d                %-5d \n", efficiency, maxCountSeq, maxCountParallel);
 
-        // Verify results
         int correct = 1;
         for (int i = 0; i < rows; i++)
         {
